@@ -6,6 +6,12 @@ For Windows, [GrayGpuImageSharp](https://github.com/seed-industrial-designing/Gr
 
 ## Examples
 
+### Demo App
+
+Demo app is included.
+
+![Screenshot of Demo App](screenshot.png)
+
 ### Applying filters
 
 In the following example, the function applies filters to 8-bit gray pixels and returns `CGImage`.
