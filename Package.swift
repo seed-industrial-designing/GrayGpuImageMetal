@@ -4,7 +4,7 @@ import CompilerPluginSupport
 
 let package = Package(
 	name: "GrayGpuImage",
-	platforms: [.macOS(.v13), .iOS(.v16)],
+	platforms: [.macOS(.v10_15), .iOS(.v16)],
 	products: [
 		.library(
 			name: "GrayGpuImage",
