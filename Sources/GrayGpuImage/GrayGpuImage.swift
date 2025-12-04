@@ -42,7 +42,7 @@ public class GrayGpuImage
 	
 	//MARK: - Replacing
 	
-	public func replace(withGray8Pixels pixels: [UInt8], size: (width: Int, height: Int)? = nil, bytesPerRow: Int)
+	public func replace(withGray8Pixels pixels: UnsafeRawPointer, size: (width: Int, height: Int)? = nil, bytesPerRow: Int)
 	{
 		if let size, (textureA.width != size.width) || (textureA.height != size.height) {
 			textureA = context.device.makeTexture(
