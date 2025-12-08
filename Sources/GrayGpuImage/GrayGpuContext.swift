@@ -42,8 +42,12 @@ public class GrayGpuContext
 		self.commandQueue = commandQueue
 	}
 	
+	let pipelineStateLock = NSLock()
 	public func pipelineState(for functionDescriptor: FunctionDescriptor) throws -> MTLComputePipelineState?
 	{
+		pipelineStateLock.lock()
+		defer { pipelineStateLock.unlock() }
+		
 		if let result = pipelineStates.first(where: { $0.descriptor == functionDescriptor })?.pipelineState {
 			return result
 		} else {
