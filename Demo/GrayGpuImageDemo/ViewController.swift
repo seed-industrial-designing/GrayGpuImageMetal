@@ -96,8 +96,10 @@ class ViewController: NSViewController
 			try workingGpuImage.apply(filters: ([
 				.level(
 					blackLevel: 0.0,
-					gamma: gammaSlider.doubleValue,
 					whiteLevel: 1.0
+				),
+				.gamma(
+					gamma: gammaSlider.doubleValue,
 				),
 				.gaussianBlur(axis: .x, radius: blurSlider.doubleValue),
 				.gaussianBlur(axis: .y, radius: blurSlider.doubleValue),

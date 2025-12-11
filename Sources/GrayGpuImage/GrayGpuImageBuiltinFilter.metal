@@ -29,8 +29,7 @@ kernel void level(
 	texture2d<float, access::read> inputTexture [[texture(0)]],
 	texture2d<float, access::write> outputTexture [[texture(1)]],
 	constant float &blackLevel [[buffer(0)]],
-	constant float &gamma [[buffer(1)]],
-	constant float &whiteLevel [[buffer(2)]],
+	constant float &whiteLevel [[buffer(1)]],
 	uint2 gid [[thread_position_in_grid]]
 ) {
 	uint width = inputTexture.get_width();
@@ -40,7 +39,22 @@ kernel void level(
 	}
 	float value = inputTexture.read(gid).r;
 	value = ((value - blackLevel) / (whiteLevel - blackLevel));
-	value = pow(value, (1.0f / gamma));
+	value = clamp(value, 0.0f, 1.0f);
+	outputTexture.write(value, gid);
+}
+kernel void gamma(
+	texture2d<float, access::read> inputTexture [[texture(0)]],
+	texture2d<float, access::write> outputTexture [[texture(1)]],
+	constant float &gamma [[buffer(0)]],
+	uint2 gid [[thread_position_in_grid]]
+) {
+	uint width = inputTexture.get_width();
+	uint height = inputTexture.get_height();
+	if ((gid.x >= width) || (gid.y >= height)) {
+		return;
+	}
+	float value = inputTexture.read(gid).r;
+	value = pow(value, gamma);
 	value = clamp(value, 0.0f, 1.0f);
 	outputTexture.write(value, gid);
 }

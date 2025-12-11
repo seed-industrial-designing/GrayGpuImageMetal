@@ -30,8 +30,10 @@ import CoreGraphics
 	
 	case level(
 		blackLevel: Double = 0.0,
-		gamma: Double = 1.0,
 		whiteLevel: Double = 1.0
+	)
+	case gamma(
+		gamma: Double
 	)
 	case threshold(
 		color: Double = 0.5
