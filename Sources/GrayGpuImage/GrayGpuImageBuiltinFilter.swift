@@ -51,6 +51,9 @@ import CoreGraphics
 	case rotate90(
 		turnCount: Int
 	)
+	case flip(
+		axis: Axis
+	)
 }
 
 extension GrayGpuImageBuiltinFilter

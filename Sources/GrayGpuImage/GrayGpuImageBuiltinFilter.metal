@@ -158,3 +158,28 @@ kernel void rotate90(
 	float4 color = inputTexture.read(inputCoord);
 	outputTexture.write(color, gid);
 }
+
+kernel void flip(
+	texture2d<float, access::read> inputTexture [[texture(0)]],
+	texture2d<float, access::write> outputTexture [[texture(1)]],
+	constant int &axis [[buffer(0)]],
+	uint2 gid [[thread_position_in_grid]]
+) {
+	uint inputWidth = inputTexture.get_width();
+	uint inputHeight = inputTexture.get_height();
+	if ((gid.x >= inputWidth) || (gid.y >= inputHeight)) {
+		return;
+	}
+	uint2 inputCoord;
+	switch (axis) {
+		case 0:
+			inputCoord = uint2((inputWidth - 1 - gid.x), gid.y);
+			break;
+		case 1:
+			inputCoord = uint2(gid.x, (inputHeight - 1 - gid.y));
+			break;
+	}
+	float4 color = inputTexture.read(inputCoord);
+	outputTexture.write(color, gid);
+}
+
